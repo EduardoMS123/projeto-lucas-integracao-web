@@ -5,6 +5,12 @@ from flask import Flask, render_template, request
 #biblioteca para criar a conexão com mysql
 import mysql.connector as sqlconec
 
+bd_config = {
+    'host': 'localhost',
+    'user':'root',
+    'password':'escola',
+    'database': 'cadastro1'
+}
 
 
 
