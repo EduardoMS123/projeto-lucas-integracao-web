@@ -5,6 +5,8 @@ from flask import Flask, render_template, request
 #biblioteca para criar a conexão com mysql
 import mysql.connector as sqlconec
 
+app = Flask(__name__)
+
 bd_config = {
     'host': 'localhost',
     'user':'root',
@@ -12,7 +14,12 @@ bd_config = {
     'database': 'cadastro1'
 }
 
+#criação de rota para arquivo HTML principal
+@app.route('/')
+def index_route():
+    return render_template('index.html')
 
+@app.route('/cadastrar', methods=['POST'])
 
 
 
