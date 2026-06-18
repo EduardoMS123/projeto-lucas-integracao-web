@@ -20,6 +20,18 @@ def index_route():
     return render_template('index.html')
 
 @app.route('/cadastrar', methods=['POST'])
+def criarCadastro():
+    cpf = request.form['cpf']
+    primeiro_nome = request.form['primeiro_nome']
+    sobrenome = request.form['sobrenome']
+    idade = request.form['idade']
+
+    #cria a conexão do banco de dados
+    connect_sql = sqlconec.connect(**bd_config)
+
+    curso_sql = connect_sql.cursor()
+
+    query = "INSERT INTO cliente1 (CPF, PRIMEIRO_NOME, SOBRENOME, IDADE) VALUES (%s,%s,%s,%s)"
 
 
 
