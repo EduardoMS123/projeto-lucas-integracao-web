@@ -21,18 +21,28 @@ def index_route():
 
 @app.route('/cadastrar', methods=['POST'])
 def criarCadastro():
-    cpf = request.form['cpf']
-    primeiro_nome = request.form['primeiro_nome']
-    sobrenome = request.form['sobrenome']
-    idade = request.form['idade']
 
-    #cria a conexão do banco de dados
-    connect_sql = sqlconec.connect(**bd_config)
+    try:
+        #recebe os dados
+        cpf = request.form['cpf']
+        primeiro_nome = request.form['primeiro_nome']
+        sobrenome = request.form['sobrenome']
+        idade = request.form['idade']
 
-    curso_sql = connect_sql.cursor()
+        #cria a conexão do banco de dados
+        connect_sql = sqlconec.connect(**bd_config)
 
-    query = "INSERT INTO cliente1 (CPF, PRIMEIRO_NOME, SOBRENOME, IDADE) VALUES (%s,%s,%s,%s)"
+        #levar instruções para o banco de dados
+        curso_sql = connect_sql.cursor()
+        query = "INSERT INTO cliente1 (CPF, PRIMEIRO_NOME, SOBRENOME, IDADE) VALUES (%s,%s,%s,%s)"
+        curso_sql.execute(query,(cpf, primeiro_nome, sobrenome, idade))
 
-
-
+        #salvar as alterações
+        curso_sql.commit()
+        #fechar o cursor
+        curso_sql.close()
+        #fechar a conexão com o banco de dados
+        connect_sql.close()
+    except sqlconec.Error as err:
+        return f'Erro ao gravar no Banco: {err}'
 
